@@ -1,0 +1,9 @@
+{
+  "name": "@adonais-eye/domain",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "dependencies": {
+    "@adonais-eye/shared": "*"
+  }
+}

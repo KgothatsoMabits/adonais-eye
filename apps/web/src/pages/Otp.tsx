@@ -1,34 +1,23 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
 import { Button } from '@adonais-eye/ui';
+import { AuthenticationTemplate } from '../components/templates/AuthenticationTemplate';
+import { OTPInput } from '../components/molecules/OTPInput';
 
 export const Otp = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState(['', '', '', '', '']);
   const [isLoading, setIsLoading] = useState(false);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  const handleChange = (index: number, value: string) => {
-    if (value.length > 1) {
-      value = value.slice(value.length - 1);
-    }
-    if (!/^\d*$/.test(value)) return;
-
+  const handleOtpChange = (index: number, value: string) => {
     const newCode = [...code];
     newCode[index] = value;
     setCode(newCode);
-
-    // Auto-advance
-    if (value && index < 4) {
-      inputRefs.current[index + 1]?.focus();
-    }
   };
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && !code[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
+  const handleBackspace = (index: number) => {
+    // Handled by the OTPInput molecule ref-focus logic, 
+    // but can be extended here if needed
   };
 
   const handleVerifyOtp = async () => {
@@ -47,7 +36,9 @@ export const Otp = () => {
   const handleKeypadPress = (num: string) => {
     const firstEmptyIndex = code.findIndex(c => c === '');
     if (firstEmptyIndex !== -1) {
-      handleChange(firstEmptyIndex, num);
+      handleOtpChange(firstEmptyIndex, num);
+      // We don't have direct access to inputRefs here easily, 
+      // but the user is using the on-screen keypad anyway.
     }
   };
 
@@ -64,40 +55,20 @@ export const Otp = () => {
       const newCode = [...code];
       newCode[lastFilledIndex] = '';
       setCode(newCode);
-      inputRefs.current[lastFilledIndex]?.focus();
     }
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-transparent px-6 py-6 h-full overflow-y-auto custom-scrollbar w-full max-w-md mx-auto">
-      <button 
-        onClick={() => navigate(-1)} 
-        className="flex items-center text-brand-dark font-medium mb-4 mt-2 w-fit hover:opacity-80"
-      >
-        <ChevronLeft className="w-5 h-5 mr-1" />
-        Back
-      </button>
-
-      <div className="mb-6 px-1">
-        <h1 className="text-[34px] font-bold text-brand-dark mb-1.5 leading-tight tracking-tight">Phone verification</h1>
-        <p className="text-gray-500 text-[16px]">Enter your OTP code sent to your registered phone.</p>
-      </div>
-
-      <div className="flex justify-center gap-3 mb-6">
-        {code.map((digit, index) => (
-          <input
-            key={index}
-            ref={(el) => (inputRefs.current[index] = el)}
-            type="text"
-            inputMode="numeric"
-            pattern="\d*"
-            maxLength={1}
-            value={digit}
-            onChange={(e) => handleChange(index, e.target.value)}
-            onKeyDown={(e) => handleKeyDown(index, e)}
-            className="w-14 h-14 text-center text-2xl font-semibold border border-gray-200 rounded-xl focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none transition-colors"
-          />
-        ))}
+    <AuthenticationTemplate
+      title="Phone verification"
+      subtitle="Enter your OTP code sent to your registered phone."
+    >
+      <div className="mb-6">
+        <OTPInput 
+          code={code} 
+          onChange={handleOtpChange} 
+          onBackspace={handleBackspace} 
+        />
       </div>
 
       <div className="text-center mb-6">
@@ -151,6 +122,7 @@ export const Otp = () => {
           </button>
         </div>
       </div>
-    </div>
+    </AuthenticationTemplate>
   );
 };
+

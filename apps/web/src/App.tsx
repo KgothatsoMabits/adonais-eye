@@ -9,6 +9,7 @@ import { Login } from './pages/Login';
 import { Otp } from './pages/Otp';
 import { SetPassword } from './pages/SetPassword';
 import { Profile } from './pages/Profile';
+import { PersonalDetails } from './pages/PersonalDetails';
 import { Home } from './pages/Home';
 
 // Simple guard to protect authenticated routes
@@ -32,6 +33,7 @@ const AppRoutes = () => {
         <Route path="/otp" element={<Otp />} />
         <Route path="/set-password" element={<SetPassword />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/personal-details" element={<PersonalDetails />} />
         
         {/* Protected Area */}
         <Route path="/home" element={

@@ -39,7 +39,12 @@ const FloatingNav = () => {
 
 export const MainLayout = () => {
   const location = useLocation();
-  const isProtected = location.pathname.startsWith('/home') || location.pathname.startsWith('/profile') || location.pathname.startsWith('/activity') || location.pathname.startsWith('/services');
+  const isProtected = 
+    (location.pathname.startsWith('/home') || 
+     location.pathname.startsWith('/profile') || 
+     location.pathname.startsWith('/activity') || 
+     location.pathname.startsWith('/services')) && 
+    location.pathname !== '/profile/personal-details';
 
   return (
     <div className="min-h-[100dvh] bg-white sm:bg-gray-50 flex flex-col">

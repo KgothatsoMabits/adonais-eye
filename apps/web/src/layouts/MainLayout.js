@@ -17,6 +17,10 @@ const FloatingNav = () => {
 };
 export const MainLayout = () => {
     const location = useLocation();
-    const isProtected = location.pathname.startsWith('/home') || location.pathname.startsWith('/profile') || location.pathname.startsWith('/activity') || location.pathname.startsWith('/services');
+    const isProtected = (location.pathname.startsWith('/home') ||
+        location.pathname.startsWith('/profile') ||
+        location.pathname.startsWith('/activity') ||
+        location.pathname.startsWith('/services')) &&
+        location.pathname !== '/profile/personal-details';
     return (_jsx("div", { className: "min-h-[100dvh] bg-white sm:bg-gray-50 flex flex-col", children: _jsx("main", { className: "flex-1 w-full max-w-md mx-auto p-0 sm:p-4 flex flex-col sm:my-8 relative", children: _jsxs("div", { className: "flex-1 bg-gradient-to-b from-brand-light/80 via-white to-white sm:shadow-xl sm:rounded-[40px] overflow-hidden relative flex flex-col", children: [_jsx(Outlet, {}), isProtected && _jsx(FloatingNav, {})] }) }) }));
 };

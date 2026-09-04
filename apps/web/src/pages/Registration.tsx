@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
-import { Button, Input } from '@adonais-eye/ui';
+import { Button, FormField } from '@adonais-eye/ui';
+import { AuthenticationTemplate } from '../components/templates/AuthenticationTemplate';
 import { isValidSAID, isValidEmail, isValidSAMobile } from '../utils/validation';
 
 export const Registration = () => {
@@ -47,22 +47,12 @@ export const Registration = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-transparent px-6 py-6 h-full overflow-y-auto custom-scrollbar w-full max-w-md mx-auto">
-      <button 
-        onClick={() => navigate(-1)} 
-        className="flex items-center text-brand-dark font-medium mb-4 mt-2 w-fit hover:opacity-80"
-      >
-        <ChevronLeft className="w-5 h-5 mr-1" />
-        Back
-      </button>
-
-      <div className="mb-4 px-1">
-        <h1 className="text-[34px] font-bold text-brand-dark mb-1.5 leading-tight tracking-tight">Create your account</h1>
-        <p className="text-gray-500 text-[16px]">Please enter your authentic details to connect.</p>
-      </div>
-
-      <form onSubmit={handleSignUp} className="flex flex-col gap-3.5 flex-1 pb-4">
-        <Input
+    <AuthenticationTemplate
+      title="Create your account"
+      subtitle="Please enter your authentic details to connect."
+    >
+      <form onSubmit={handleSignUp} className="flex flex-col gap-3.5 flex-1">
+        <FormField
           label="Full Name"
           placeholder="e.g. Sipho Nkosi"
           value={formData.fullName}
@@ -70,32 +60,32 @@ export const Registration = () => {
           required
         />
         
-        <Input
+        <FormField
           label="SA ID Number (13 digits)"
           placeholder="e.g. 9402145890081"
           value={formData.idNumber}
           onChange={(e) => setFormData({ ...formData, idNumber: e.target.value.replace(/\D/g, '').slice(0, 13) })}
-          error={errors.idNumber}
+          errorText={errors.idNumber}
           required
         />
 
-        <Input
+        <FormField
           label="Email Address"
           type="email"
           placeholder="sipho.nkosi@gmail.com"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          error={errors.email}
+          errorText={errors.email}
           required
         />
 
-        <Input
+        <FormField
           label="Mobile Number"
           type="tel"
           placeholder="+27 82 123 4567"
           value={formData.mobile}
           onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-          error={errors.mobile}
+          errorText={errors.mobile}
           required
         />
 
@@ -153,6 +143,7 @@ export const Registration = () => {
           </Button>
         </div>
       </form>
-    </div>
+    </AuthenticationTemplate>
   );
 };
+

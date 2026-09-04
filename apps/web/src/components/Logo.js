@@ -1,0 +1,3 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Shield } from 'lucide-react';
+export const Logo = () => (_jsxs("div", { className: "flex flex-col items-center", children: [_jsx("div", { className: "w-24 h-24 bg-brand-dark rounded-full flex items-center justify-center mb-5 shadow-lg shadow-brand-dark/20 ring-4 ring-brand-light", children: _jsx(Shield, { className: "w-11 h-11 text-brand-blue", strokeWidth: 1.75 }) }), _jsx("h1", { className: "text-[32px] font-extrabold text-brand-dark mb-1 tracking-tight", children: "e-SAPS" }), _jsx("p", { className: "text-[11px] font-bold text-gray-400 tracking-[0.25em] uppercase", children: "S.A. Police Services" })] }));

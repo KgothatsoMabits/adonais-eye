@@ -5,19 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm",
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
+    "@adonais-eye/domain": "*",
+    "@adonais-eye/shared": "*",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "@adonais-eye/domain": "*",
-    "@adonais-eye/shared": "*"
+    "express": "^4.19.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
     "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "tsup": "^8.5.1",
     "tsx": "^4.7.2",
     "typescript": "^5.4.5"
   }

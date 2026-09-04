@@ -8,6 +8,10 @@
     "esModuleInterop": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@adonais-eye/*": ["packages/*/src"]
+    }
   }
 }
